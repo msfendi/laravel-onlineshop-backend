@@ -71,7 +71,7 @@ class CategoryController extends Controller
         $data['image'] = $newFilename;
 
         Category::create($data);
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('success', 'Category successfully created');
     }
 
     /**
@@ -110,14 +110,18 @@ class CategoryController extends Controller
         $data['image'] = isset($newFilename) ? $newFilename : $category->image;
 
         $category->update($data);
-        return redirect()->route('category.index');
+        return redirect()->route('category.index')->with('update', 'Category successfully updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy(String $id)
     {
-        //
+        // get data category by id
+        $category = Category::findOrFail($id);
+        Storage::disk('public')->delete('categories/' . $category->image);
+        $category->delete();
+        return redirect()->route('category.index')->with('destroy', 'Category successfully deleted');
     }
 }
