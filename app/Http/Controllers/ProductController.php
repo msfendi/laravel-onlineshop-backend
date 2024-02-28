@@ -74,7 +74,7 @@ class ProductController extends Controller
         $data['image'] = $newFilename;
 
         Product::create($data);
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->with('success', 'Product successfully created');
     }
 
     /**
@@ -114,14 +114,18 @@ class ProductController extends Controller
         $data['image'] = isset($newFilename) ? $newFilename : $product->image;
 
         $product->update($data);
-        return redirect()->route('product.index');
+        return redirect()->route('product.index')->with('update', 'Product successfully updated');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Product $product)
+    public function destroy(String $id)
     {
-        //
+        // get data product by id
+        $product = Product::findOrFail($id);
+        Storage::disk('public')->delete('products/' . $product->image);
+        $product->delete();
+        return redirect()->route('product.index')->with('destroy', 'Product successfully deleted');
     }
 }

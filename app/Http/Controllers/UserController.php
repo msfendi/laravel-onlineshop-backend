@@ -45,7 +45,7 @@ class UserController extends Controller
         $data = $request->all();
         $data['password'] = Hash::make($request->password);
         User::create($data);
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('success', 'User successfully created');
     }
 
     /**
@@ -79,7 +79,7 @@ class UserController extends Controller
             $data['password'] = $user->password;
         }
         $user->update($data);
-        return redirect()->route('user.index');
+        return redirect()->route('user.index')->with('update', 'User successfully updated');
     }
 
     /**
@@ -89,6 +89,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->delete();
-        return redirect()->route('user.index')->with('success', 'User has been deleted');
+        return redirect()->route('user.index')->with('destroy', 'User has been deleted');
     }
 }
