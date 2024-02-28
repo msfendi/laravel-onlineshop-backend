@@ -30,117 +30,123 @@
         <div class="section-body">
             <h2 class="section-title">Products</h2>
 
-            <div class="card">
-                <form action="{{ route('product.update', $product) }}" method="POST" enctype="multipart/form-data">
-                    @csrf
-                    @method('PUT')
-                    <div class="card-header">
-                        <h4>Input Text</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" class="form-control @error('name')
+            <form action="{{ route('product.update', $product) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="row">
+                    <div class="col-lg-8 col-md-12 col-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control @error('name')
                                 is-invalid
                             @enderror" name="name" value="{{ $product->name }}">
-                            @error('name')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label>Slug</label>
-                            <input type="text" class="form-control @error('slug')
+                                    @error('name')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="form-group">
+                                    <label>Slug</label>
+                                    <input type="text" class="form-control @error('slug')
                                 is-invalid
                             @enderror" name="slug" value="{{ $product->slug }}">
-                            @error('slug')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Category</label>
-                            <select class="form-control selectric @error('category_id') is-invalid @enderror" name="category_id">
-                                <option value="">-- Select Category --</option>
-                                @foreach ($categories as $category)
-                                <option value="{{ $category->id }}" {{ ($category->id == $product->category_id) ? 'selected' : '' }}>
-                                    {{ $category->name }}
-                                </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Description</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-lock"></i>
+                                    @error('slug')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
                                     </div>
+                                    @enderror
                                 </div>
-                                <textarea class="form-control @error('description')
+                                <div class="form-group">
+                                    <label class="form-label">Category</label>
+                                    <select class="form-control selectric @error('category_id') is-invalid @enderror" name="category_id">
+                                        <option value="">-- Select Category --</option>
+                                        @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}" {{ ($category->id == $product->category_id) ? 'selected' : '' }}>
+                                            {{ $category->name }}
+                                        </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Description</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-lock"></i>
+                                            </div>
+                                        </div>
+                                        <textarea class="form-control @error('description')
                                     is-invalid
                                 @enderror" name="description">{{ $product->description }}</textarea>
-                            </div>
-                            @error('description')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label>Price</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-lock"></i>
                                     </div>
+                                    @error('description')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
-                                <input type="number" class="form-control @error('price')
+
+                                <div class="form-group">
+                                    <label>Price</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-lock"></i>
+                                            </div>
+                                        </div>
+                                        <input type="number" class="form-control @error('price')
                                 is-invalid
                             @enderror" name="price" value="{{ $product->price }}">
-                            </div>
-                            @error('price')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
-                            <label>Stock</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <div class="input-group-text">
-                                        <i class="fas fa-lock"></i>
                                     </div>
+                                    @error('price')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
-                                <input type="number" class="form-control @error('stock')
+
+                                <div class="form-group">
+                                    <label>Stock</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-lock"></i>
+                                            </div>
+                                        </div>
+                                        <input type="number" class="form-control @error('stock')
                                 is-invalid
                             @enderror" name="stock" value="{{ $product->stock }}">
+                                    </div>
+                                    @error('stock')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                </div>
+                                <div class="mt-sm-4">
+                                    <div class="card-footer text-right">
+                                        <button class="btn btn-primary">Update</button>
+                                    </div>
+                                </div>
                             </div>
-                            @error('stock')
-                            <div class="invalid-feedback">
-                                {{ $message }}
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-12 col-12 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <label>Image</label>
+                                    <input type="file" class="my-pond" name="image" multiple>
+                                </div>
                             </div>
-                            @enderror
                         </div>
-
-                        <div class="form-group">
-                            <label>Image</label>
-                            <input type="file" class="my-pond" name="image" multiple>
-                        </div>
-
                     </div>
-                    <div class="card-footer text-right">
-                        <button class="btn btn-primary">Submit</button>
-                    </div>
-                </form>
-            </div>
-
+                </div>
+            </form>
         </div>
     </section>
 </div>
